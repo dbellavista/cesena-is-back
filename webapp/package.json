@@ -1,0 +1,28 @@
+{
+  "name": "cesena-games",
+  "version": "0.0.1",
+  "description": "CeSeNA challenge games!",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.0.0",
+    "body-parser": "^1.4.3",
+    "morgan": "^1.0.0",
+    "base64url": "*"
+  },
+  "devDependencies": {
+    "nodemon": "1.0.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+
+}

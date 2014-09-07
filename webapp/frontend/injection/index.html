@@ -1,0 +1,72 @@
+<!-- -*- mode:javascript -*--->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>SYSTEM EMERGENCY RECOVERY CONSOLE</title>
+  <meta name="Description" content="This is demonstration of JQuery Terminal Emulator Plugin. To run terminal type tilda on you keyboard." />
+  <script src="../js/jquery-1.11.1.min.js"></script>
+  <script src="../js/jquery.mousewheel-min.js"></script>
+  <script src="../js/jquery.terminal-src.js"></script>
+  <link href="../css/jquery.terminal.css" rel="stylesheet" />
+  <link href="../css/blink.terminal.css" rel="stylesheet" />
+  <link href="../css/commodore.terminal.css" rel="stylesheet" />
+  <!--[if IE]>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+.tilda {
+    position: absolute;
+}
+</style>
+<script>
+jQuery(document).ready(function($) {
+   $(window).scroll(function() {
+      $('.tilda').each(function() {
+         $(this).css({top: $('body').prop('scrollTop')});
+      });
+   });
+});
+</script>
+<![endif]-->
+  <script>
+    $(function() {
+      $('#term').terminal('/api/injection', {
+        login: true,
+        prompt: '> ',
+        greetings: '\nSYSTEM RECOVERY TERMINAL, type help for help\n',
+        width: 640,
+        height: 480,
+        processArguments: function (args) {
+          /*
+          var res = [];
+          var spl = args.split(';');
+          for (var i = 0; i < spl.length; i++) {
+            var r = spl[i].split(' ');
+            r.forEach(function(v) {
+              if (v !== '')
+                res.push(v);
+            });
+            if (i < spl.length - 1)
+              res.push(';');
+          }
+          return res;
+          */
+          return [args];
+        }
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="monitor">
+    <div id="term"></div>
+  </div>
+</body>
+
+</html>
