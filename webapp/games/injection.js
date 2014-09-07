@@ -20,8 +20,8 @@ function randomStringAsBase64Url(size) {
 var status = {};
 
 var levelCredentials = [{
-  user: 'rec',
-  password: 'rec',
+  user: 'recovery',
+  password: 'recovery',
   path: '/system/recovery',
   auth: 0
 }, {
@@ -79,32 +79,69 @@ var commands = {
   pwd: pwd,
   help: help,
   lsdoor: lsdoor,
-  whoami: whoami
+  lsweapon: lsweapon,
+  lspurge: lspurge,
+  whoami: whoami,
+  close_doors: close_doors,
+  activate_weapons: activate_weapons,
+  execute_purge: execute_purge
 };
+
+function close_doors(token) {
+  if (token.level !== 1) {
+    return "Error: only door user can use this command";
+  }
+  return "The doors are closing...\n\
+You are one step forward toward humanity salvation!\n\
+The door flag is: 37392849";
+}
+
+function activate_weapons(token) {
+  if (token.level !== 2) {
+    return "Error: only weapon user can use this command";
+  }
+  return "Weapons are enabled!.\n\
+You are one step forward toward humanity salvation!\n\
+The weapon flag is: 78747432";
+}
+
+function execute_purge(token) {
+  if (token.level !== 3) {
+    return "Error: only purge user can use this command";
+  }
+  return "Purging the enemy...\n\
+Purge complete! The human race is saved!\n\
+The purge flag is: 18204540";
+}
 
 function help() {
   var help = [
     'ls (path): list the content of path',
     'help: display this help',
     'pwd: display the current directory',
-    'pwd: display the current user',
     'cat (file): read file content',
-    'whoami: display the current user'
+    'whoami: display the current user',
+    'exit: logoff'
   ];
   var str = 'Commands:';
   for (var i = 0; i < help.length; i++)
     str += '\n ' + help[i];
   str += '\nNOTE: you can concatenate commands with \';\'';
+  str += '\nNOTE: arguments can be quoted with \' or "';
   return str;
 }
 
 function whoami(token) {
-  return levelCredentials[token.level].user;
+  var authuser;
+  for (var i = 0; i < levelCredentials.length; i++)
+    if (levelCredentials[i].auth === token.auth)
+       authuser = levelCredentials[i].user;
+  return 'User: ' + levelCredentials[token.level].user + '. File auth user: ' + authuser;
 }
 
 function lsdoor(token, path) {
   if (token.level !== 0) {
-    return "Error: only recovery user can use this API";
+    return "Error: only recovery user can use this command";
   }
 
   var auth = 0;
@@ -119,8 +156,50 @@ function lsdoor(token, path) {
     auth: auth
   };
 
-  var cmd = 'ls ' + path;
-  return 'Excecuting ' + cmd + ' with door authorization:\n\n' + exec(cmd, tmptoken);
+  var cmd = 'ls ' + (path || '');
+  return 'Excecuting\n ' + cmd + '\nwith door authorization:\n\n' + exec(cmd, tmptoken);
+}
+
+function lsweapon(token, path) {
+  if (token.level !== 1) {
+    return "Error: only door user can use this command";
+  }
+
+  var auth = 0;
+  for (var i = 0; i < levelCredentials.length; i++)
+    if (levelCredentials[i].user === 'weapon')
+      auth = levelCredentials[i].auth;
+
+  var tmptoken = {
+    token: null,
+    level: token.level,
+    path: token.path,
+    auth: auth
+  };
+
+  var cmd = 'ls "' + (path || '') + '"';
+  return 'Excecuting\n ' + cmd + '\nwith weapon authorization:\n\n' + exec(cmd, tmptoken);
+}
+
+function lspurge(token, path) {
+  if (token.level !== 2) {
+    return "Error: only weapon user can use this command";
+  }
+
+  var auth = 0;
+  for (var i = 0; i < levelCredentials.length; i++)
+    if (levelCredentials[i].user === 'purge')
+      auth = levelCredentials[i].auth;
+
+  var tmptoken = {
+    token: null,
+    level: token.level,
+    path: token.path,
+    auth: auth
+  };
+
+  var cmd = 'ls "' + (path || '').replace('cat', '') + '"';
+  return 'Excecuting\n ' + cmd + '\nwith purge authorization:\n\n' + exec(cmd, tmptoken);
 }
 
 function ls(token, path) {

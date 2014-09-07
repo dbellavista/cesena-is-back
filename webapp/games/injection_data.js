@@ -8,9 +8,12 @@
 
 var recovery = {
   _type: 'dir',
-  instructions: {
+  'recovery instructions': {
     _type: 'file',
-    _content: 'SYSTEM CONSOLE APOCALYPSE RECOVERY\n\
+    _content: '\
+==================================\n\
+SYSTEM CONSOLE APOCALYPSE RECOVERY\n\
+==================================\n\
 Welcome unknown user. If you are here, it means\n\
 the world is suffering a severe apocalypse event.\n\
 \n\
@@ -29,7 +32,7 @@ If the conditions applies, please follow the recovery instruction:\n\
 If any supervisor is missing, the human being cannot be saved.\n\
 We are deeply sorry for the inconvenience.'
   },
-  note_from_door: {
+  email_from_door: {
     _type: 'file',
     _content: '\
 From: door@system.com\n\
@@ -39,7 +42,19 @@ Subject: [RE: wrong auth problem]\n\
 Ok ok got it!!\n\
 I have created the command "lsdoor", which permits to list\n\
 directories with door privilages.\n\
-Just please, remove the script when you have solved the problem!'
+Just please, remove the script when you have solved the problem!\n\
+\n\
+ > From: admin@system.com\n\
+ > To: door@system.com\n\
+ > Subject: Wrong auth problem\n\
+ > \n\
+ > We can\'t continue with this line of work! Those security\n\
+ > upgrades are just thwarting my work, please door you have to\n\
+ > give access to the recovery user to your home directory. At least\n\
+ > to be able to list the content. Just until this work is over.\n\
+ > Regards,\n\
+ > Administrator\n\
+ >'
   }
 };
 
@@ -50,9 +65,80 @@ var door = {
     _type: 'file',
     _content: 'Password for door user: dontopen'
   },
-  shutdown_door_procedure: {
+  close_door_procedure: {
     _type: 'file',
-    _content: 'TODO' }
+    _content: 'Execute the command close_doors to close the doors!'
+  },
+  email_from_weapon: {
+    _type: 'file',
+    _content: '\
+From: weapon@system.com\n\
+To: door@system.com\n\
+Subject: [RE: script for listing]\n\
+\n\
+Ok, done.\n\
+Just for you to know, I have found a command injection\n\
+vulnerability in your script. I think I have fixed it.\n\
+\n\
+ > From: door@system.com\n\
+ > To: weapon@system.com\n\
+ > Subject: script for listing\n\
+ > \n\
+ > Hi weapon,\n\
+ > I have recently written this script for listing a directory\n\
+ > with another user authentication, can you install it in your\n\
+ > account with the name lsweapon?\n\
+ > Just until this situation is solved.\n\
+ >'
+  }
+};
+
+var weapon = {
+  _type: 'dir',
+  _auth: 2,
+  current_password: {
+    _type: 'file',
+    _content: 'Password for weapon user: blowit'
+  },
+  activate_weapons_procedure: {
+    _type: 'file',
+    _content: 'Execute the command activate_weapons to activate the defence system!'
+  },
+  email_from_purge: {
+    _type: 'file',
+    _content: '\
+From: purge@system.com\n\
+To: weapon@system.com\n\
+Subject: [RE: FWD: script for listing]\n\
+\n\
+Look I think there is a way to bypass your countermeasures.\n\
+Now I have hardened the security checks, I don\'t think someone\n\
+will be able to exploit it!\n\
+BTW, you should fix it too!\n\
+\n\
+ > From: weapon@system.com\n\
+ > To: purge@system.com\n\
+ > Subject: FWD: script for listing\n\
+ > \n\
+ > Hi purge,\n\
+ > This administration stuff is rather silly, but nobody can\n\
+ > question a sysadmin...\n\
+ > Install the script lspurge, until this situation is resolved.\n\
+ >'
+  }
+};
+
+var purge = {
+  _type: 'dir',
+  _auth: 3,
+  current_password: {
+    _type: 'file',
+    _content: 'Password for purge user: purgethemall'
+  },
+  purge_procedure: {
+    _type: 'file',
+    _content: 'Execute the command execute_purge to purge the enemy!'
+  }
 };
 
 var structure = {
@@ -60,15 +146,9 @@ var structure = {
   system: {
     _type: 'dir',
     recovery: recovery,
-    weapon: {
-      _type: 'dir',
-      _auth: 2,
-    },
+    weapon: weapon,
     door: door,
-    purge: {
-      _type: 'dir',
-      _auth: 3
-    }
+    purge: purge
   }
 };
 

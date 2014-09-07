@@ -5,13 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <title>SYSTEM EMERGENCY RECOVERY CONSOLE</title>
-  <meta name="Description" content="This is demonstration of JQuery Terminal Emulator Plugin. To run terminal type tilda on you keyboard." />
   <script src="../js/jquery-1.11.1.min.js"></script>
   <script src="../js/jquery.mousewheel-min.js"></script>
   <script src="../js/jquery.terminal-src.js"></script>
   <link href="../css/jquery.terminal.css" rel="stylesheet" />
   <link href="../css/blink.terminal.css" rel="stylesheet" />
-  <link href="../css/commodore.terminal.css" rel="stylesheet" />
+  <link href="../css/injection.css" rel="stylesheet" />
   <!--[if IE]>
 <style>
 body {
@@ -36,34 +35,45 @@ jQuery(document).ready(function($) {
     $(function() {
       $('#term').terminal('/api/injection', {
         login: true,
-        prompt: '> ',
+        prompt: '$ ',
         greetings: '\nSYSTEM RECOVERY TERMINAL, type help for help\n',
         width: 640,
         height: 480,
         processArguments: function (args) {
-          /*
-          var res = [];
-          var spl = args.split(';');
-          for (var i = 0; i < spl.length; i++) {
-            var r = spl[i].split(' ');
-            r.forEach(function(v) {
-              if (v !== '')
-                res.push(v);
-            });
-            if (i < spl.length - 1)
-              res.push(';');
-          }
-          return res;
-          */
           return [args];
         }
       });
-
+      $(".instructions").click(function() {
+        $(".data", this).toggle(100);
+      });
     });
   </script>
 </head>
 
 <body>
+  <div class="instructions" id="context">
+    <h1>Context</h1>
+    <span class="data">
+    Aliens have surrounded you and your team.
+    Your only salvation was to hide inside an abbandoned bunker.
+    After exploring in the dark, you reach inside a big, square room, lit by several red emergency lights.
+    The room is filled with old racks and abbandoned workstations.
+    At the other side of the room you can see a monitor, glooming with a green font.
+    The corpse of a female doctor lies on the floor. In her hand a wrinkled piece of paper reports:
+    <span style='font-weight: bold'>
+      Only hope for humanity.
+      Recover the system and execute the purge procedure.
+      User password: recovery, recovery
+    </span>
+    </span>
+  </div>
+  <div class="instructions" id="note">
+    <h1>Note</h1>
+    <span class="data">
+    You should disable Vimperator or similar plugins or enter in insert mode.
+    Initial credential are recovery:recovery (as stated in the context).
+    </span>
+  </div>
   <div class="monitor">
     <div id="term"></div>
   </div>

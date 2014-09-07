@@ -1,0 +1,54 @@
+body {
+    background-color: #000000;
+}
+#term {
+    -moz-border-radius: 10px 10px / 10px 10px;
+    border-radius: 10px 10px / 10px 10px;
+    background: #131326;
+}
+.monitor {
+    -moz-border-radius: 5px 5px / 5px 5px;
+    border-radius: 5px 5px / 5px 5px;
+    display: inline-block;
+    background: #666666;
+    padding: 10px;
+}
+.terminal, .cmd {
+    background-color: #242448;
+    color: #00CF00;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5;
+}
+.terminal-output > div {
+    padding-top: 0;
+}
+.cmd {
+    height: 1em;
+}
+
+div.instructions {
+  -moz-border-radius: 5px 5px / 5px 5px;
+  border-radius: 5px 5px / 5px 5px;
+  background: #333333;
+  color: #FFCC00;
+  width: 660px;
+  font-family: "Courier New", Courier, monospace;
+  margin: 5px 0px 5px 0px;
+  padding: 10px;
+}
+
+div.instructions:hover {
+  background: #666666;
+}
+
+div.instructions h1 {
+  text-transform: uppercase;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+div.instructions span.data {
+  display: none;
+}
